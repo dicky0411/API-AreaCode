@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use GB2260;
-use Illuminate\Http\Request;
+
 
 class AreaCodeController extends Controller
 {
