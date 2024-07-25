@@ -50,7 +50,7 @@
         }
         .error {
             color: #f44336;
-            background: rgba(255, 127, 127, 0.8);
+            background: rgba(0, 0, 0, 1);
             border: 2px solid #f44336;
             padding: 15px;
             border-radius: 8px;
@@ -76,16 +76,17 @@
             font-size: 1.2em;
             border: 2px solid #ffeb3b;
             border-radius: 25px 0 0 25px;
+            color:(244, 233, 0);
             width: 300px;
             box-sizing: border-box;
             outline: none;
             background: rgba(255, 255, 255,0.2);
-            color: #fff;
+            
             transition: border-color 0.3s, background 0.3s;
         }
         .search-form input[type="text"]:focus {
-            color: rgb(237, 233, 157);
-            background: rgb(237, 0, 157);
+            color: rgb(244, 233, 0);
+            background: rgb(0, 0, 0);
         }
         .search-form button {
             padding: 12px;
@@ -117,19 +118,23 @@
 </head>
 <body>
     <div class="container">
+        <h1>Area Code Information</h1>
+        <p>Enter a 6 digit valid Area Code</p>
         @if(isset($message))
-            <h1>Area Code Information</h1>
-            <p>Enter a 6 digit valid Area Code</p>
-            <div class="info-section">
-                <p>{{ $message }}</p>
-                <p><strong>Area Code:</strong> {{ $AC ?? 'Not Available' }}</p>
-            </div>
+            @if(strpos($message, 'Invalid') !== false || strpos($message, 'error') !== false)
+                <div class="error">{{ $message }}</div>
+            @else
+                <div class="info-section">
+                    <p><strong>{{ $message }}</strong></p>
+                    <p><strong>Area Code:</strong> {{ $AC ?? 'Not Available' }}</p>
+                </div>
+            @endif
         @endif
 
         <!-- Search Form -->
         <div class="search-form">
             <form id="search-form" method="GET">
-                <input type="text" id="ip-region" name="code" placeholder="Enter region IP"  required>
+                <input type="text" id="ip-region" name="code" placeholder="Enter Region IP"  maxlength="6" required>
                 <button type="submit">Search</button>
             </form>
         </div>
