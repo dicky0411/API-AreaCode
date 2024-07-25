@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use GB2260;
+use Illuminate\Http\Request;
+
 
 class AreaCodeController extends Controller
 {
@@ -18,4 +20,15 @@ class AreaCodeController extends Controller
 
         return response()->json($result, 200, [], JSON_PRETTY_PRINT);
     }
+    public function show(Request $request, $ac = null)
+    {
+        $gb2260 = new \GB2260\GB2260();
+        $result = $gb2260->get($ac);
+       
+        return view('welcome', [
+            "message" => json($result,200,[],JSON_PRETTY_PRINT),
+            "AC" => $ac,
+        ]);
+    }
+
 }
